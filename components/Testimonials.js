@@ -130,7 +130,7 @@ export default function Testimonials() {
          <div className="bg-gray-50 rounded-xl p-8">
            <h3 className="text-lg font-semibold text-gray-800 mb-2">No testimonials yet</h3>
            <p className="text-gray-600 mb-4">
-             Be the first to share your experience with HalloQuip!
+             Be the first to share your experience with StarkLabs!
            </p>
            <Link
              href="/feedback"

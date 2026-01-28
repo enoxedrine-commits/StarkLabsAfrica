@@ -154,7 +154,7 @@ export default function SearchBar() {
 
   // Get current dynamic placeholder
   const getCurrentPlaceholder = () => {
-    const basePlaceholder = "Search on HeloQuip";
+    const basePlaceholder = "Search electronics components...";
     const productSuggestions = allProducts
       .slice(0, 3)
       .map(product => `Search for ${product.name}`)
@@ -277,10 +277,20 @@ export default function SearchBar() {
         <input
           type="text"
           placeholder={getCurrentPlaceholder()}
-            className="w-full pl-6 pr-12 md:pr-4 py-2 rounded-full focus:outline-none text-base transition-all duration-300 bg-transparent"
+            className="w-full pl-6 pr-12 md:pr-4 py-2 rounded focus:outline-none text-base transition-all duration-300"
+            style={{ 
+              background: '#FFFFFF',
+              border: 'none',
+              color: 'var(--text-primary)'
+            }}
+            onFocus={(e) => {
+              setIsFocused(true);
+            }}
+            onBlur={(e) => {
+              // Border is handled by wrapper CSS
+            }}
           value={searchTerm}
           onChange={handleInputChange}
-          onFocus={() => setIsFocused(true)}
           onKeyDown={handleKeyDown}
           role="combobox"
           aria-expanded={isFocused && suggestions.length > 0}
@@ -291,7 +301,10 @@ export default function SearchBar() {
           {/* Mobile: Icon button inside input */}
           <button 
             type="submit" 
-            className="absolute right-3 top-1/2 -translate-y-1/2 md:hidden text-gray-500 hover:text-gray-700" 
+            className="absolute right-3 top-1/2 -translate-y-1/2 md:hidden transition-all" 
+            style={{ color: 'var(--text-secondary)' }}
+            onMouseEnter={(e) => e.target.style.color = 'var(--accent-blue)'}
+            onMouseLeave={(e) => e.target.style.color = 'var(--text-secondary)'}
             aria-label="Search"
           >
           <Search className="w-4 h-4" />
@@ -301,7 +314,7 @@ export default function SearchBar() {
         {/* Desktop: Visible search button */}
         <button 
           type="submit" 
-          className="hidden md:flex items-center gap-2 px-6 py-2 bg-[#0865ff] text-white rounded-full hover:bg-[#075ae6] transition-colors font-medium text-base whitespace-nowrap" 
+          className="hidden md:flex items-center gap-2 px-6 py-2 rounded-full transition-all font-medium text-base whitespace-nowrap btn-secondary" 
           aria-label="Search"
         >
           <Search className="w-5 h-5" />
@@ -311,19 +324,35 @@ export default function SearchBar() {
 
       {/* Search Suggestions Dropdown */}
       {isFocused && searchTerm && suggestions.length > 0 && (
-        <ul id={listboxId} role="listbox" className="absolute z-50 bg-white w-full border border-gray-200 rounded-lg mt-2 shadow-lg max-h-80 overflow-y-auto search-suggestions" onTouchStart={handleTouchStart} onTouchMove={handleTouchMove}>
+        <ul id={listboxId} role="listbox" className="absolute z-50 w-full rounded mt-2 max-h-80 overflow-y-auto search-suggestions bg-white" style={{ border: '1px solid #D5D9D9', boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)' }} onTouchStart={handleTouchStart} onTouchMove={handleTouchMove}>
           {suggestions.map((product, index) => (
-            <li key={product.id} id={`suggestion-${product.id}`} role="option" aria-selected={index === highlightedIndex} className="p-0 border-b border-gray-100 last:border-b-0">
+            <li key={product.id} id={`suggestion-${product.id}`} role="option" aria-selected={index === highlightedIndex} className="p-0 last:border-b-0" style={{ borderBottom: '1px solid var(--border-subtle)' }}>
               <button
                 type="button"
-                className={`w-full px-4 py-2.5 cursor-pointer transition-colors text-left pointer-events-auto ${index === highlightedIndex ? 'bg-gray-100' : 'hover:bg-gray-50'}`}
+                className={`w-full px-4 py-2.5 cursor-pointer transition-all text-left pointer-events-auto`}
+                style={{ 
+                  background: index === highlightedIndex ? '#F5F5F5' : 'transparent',
+                  color: 'var(--text-primary)'
+                }}
+                onMouseEnter={(e) => {
+                  if (index !== highlightedIndex) {
+                    e.target.style.background = '#F5F5F5';
+                    e.target.style.color = 'var(--accent-blue)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (index !== highlightedIndex) {
+                    e.target.style.background = 'transparent';
+                    e.target.style.color = 'var(--text-primary)';
+                  }
+                }}
                 onMouseDown={handleSuggestionMouseDown}
                 onClick={(e) => handleSuggestionClickSafe(e, product)}
                 onTouchEnd={(e) => handleTouchEnd(e, product)}
               >
                 <div className="flex items-center space-x-4">
                   {/* Product Image */}
-                  <div className="flex-shrink-0 w-12 h-12 bg-gray-100 rounded-md overflow-hidden search-suggestion-image">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-md overflow-hidden search-suggestion-image bg-gray-100">
                     {(product.image || product.imageUrl) ? (
                       <Image
                         src={getPreferredImageUrl(product.image || product.imageUrl)}
@@ -338,18 +367,18 @@ export default function SearchBar() {
                       />
                     ) : null}
                     {/* Fallback icon when no image */}
-                    <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs bg-gray-100" style={{ display: (product.image || product.imageUrl) ? 'none' : 'flex' }}>
-                      🏥
+                    <div className="w-full h-full flex items-center justify-center text-xs bg-gray-100" style={{ display: (product.image || product.imageUrl) ? 'none' : 'flex', color: 'var(--text-muted)' }}>
+                      ⚡
                     </div>
                   </div>
 
                   {/* Product Info */}
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900 truncate">
+                    <p className="text-sm font-medium truncate" style={{ color: 'var(--text-primary)' }}>
                       {product.name}
                     </p>
                     {product.sku && (
-                      <p className="text-xs text-gray-500">SKU: {product.sku}</p>
+                      <p className="text-xs" style={{ color: 'var(--text-muted)' }}>SKU: {product.sku}</p>
                     )}
                     {product.price && (
                       <p className="text-xs text-gray-500">UGX {product.price.toLocaleString()}</p>

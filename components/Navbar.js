@@ -150,9 +150,15 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="bg-white fixed top-0 left-0 right-0 z-[100] border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 py-2">
-          <div className="flex items-center justify-between gap-2">
+      <header 
+        className="fixed top-0 left-0 right-0 z-[100] bg-white" 
+        style={{ 
+          borderBottom: '1px solid #D5D9D9',
+          boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)' 
+        }}
+      >
+        <div className="max-w-7xl mx-auto px-4" style={{ height: '72px' }}>
+          <div className="flex items-center justify-between gap-4 h-full">
             {/* Logo */}
             <div className="flex items-center gap-1 flex-shrink-0">
               <CachedLogo
@@ -162,10 +168,10 @@ export default function Navbar() {
                 priority={true}
               />
             </div>
-
+            
             {/* Search Bar - Desktop */}
             {showSearch && (
-              <div className="flex-1 hidden md:block max-w-4xl mx-8">
+              <div className="flex-1 hidden md:block min-w-0 mx-4">
                 <SearchBar />
               </div>
             )}
@@ -175,23 +181,55 @@ export default function Navbar() {
               {/* Notifications - only when logged in */}
               {user && (
                 <>
-                  <button onClick={() => setOpenNotifications((o) => !o)} className="relative text-gray-600 hover:text-[#2e4493] focus:outline-none p-2 hover:bg-[#e5f3fa] rounded-lg transition-colors" aria-label="Notifications">
+                  <button 
+                    onClick={() => setOpenNotifications((o) => !o)} 
+                    className="relative focus:outline-none p-2 rounded-lg transition-all" 
+                    style={{ 
+                      color: 'var(--text-secondary)',
+                      transition: 'all 0.3s ease' 
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.color = 'var(--accent-orange)';
+                      e.currentTarget.style.background = '#FFF5E6';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.color = 'var(--text-secondary)';
+                      e.currentTarget.style.background = 'transparent';
+                    }}
+                    aria-label="Notifications"
+                  >
                     <BellIcon className="h-6 w-6" />
                     {notifications > 0 && (
-                      <span className="absolute top-1 right-1 bg-red-600 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center pointer-events-none">
+                      <span className="absolute top-1 right-1 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center pointer-events-none" style={{ background: 'var(--accent-red)', boxShadow: '0 0 8px rgba(198, 40, 40, 0.5)' }}>
                         {notifications}
                       </span>
                     )}
                   </button>
                   {openNotifications && (
-                    <div className="absolute right-0 top-full mt-2 w-80 bg-white rounded-xl shadow-lg border border-gray-200 z-50 max-h-80 overflow-auto">
-                      <div className="p-3 border-b border-gray-100 font-semibold">Notifications</div>
+                    <div 
+                      className="absolute right-0 top-full mt-2 w-80 rounded z-50 max-h-80 overflow-auto bg-white" 
+                      style={{ 
+                        border: '1px solid #D5D9D9',
+                        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)' 
+                      }}
+                    >
+                      <div className="p-3 font-semibold text-xs" style={{ borderBottom: '1px solid var(--border-subtle)', color: 'var(--text-primary)' }}>Notifications</div>
                       {notificationItems.length === 0 ? (
-                        <div className="p-4 text-sm text-gray-500">No notifications</div>
+                        <div className="p-4 text-sm" style={{ color: 'var(--text-muted)' }}>No notifications</div>
                       ) : (
-                        <ul className="divide-y divide-gray-100">
+                        <ul style={{ borderTop: '1px solid var(--border-subtle)' }}>
                           {notificationItems.slice(0,20).map((n) => (
-                            <li key={n.id} className="p-3 text-sm">
+                            <li 
+                              key={n.id} 
+                              className="p-3 text-sm transition-colors"
+                              style={{ borderBottom: '1px solid var(--border-subtle)' }}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.background = '#F5F5F5';
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.background = 'transparent';
+                              }}
+                            >
                               <button
                                 className="text-left w-full"
                                 onClick={() => {
@@ -200,8 +238,8 @@ export default function Navbar() {
                                   router.push(target);
                                 }}
                               >
-                                <p className="font-medium text-gray-800">{n.title || 'Update'}</p>
-                                <p className="text-gray-600">{n.text || n.body}</p>
+                                <p className="font-medium" style={{ color: 'var(--text-primary)' }}>{n.title || 'Update'}</p>
+                                <p style={{ color: 'var(--text-secondary)' }}>{n.text || n.body}</p>
                                 {n.timestamp && (
                                   <p className="text-xs text-gray-400 mt-1">{new Date(n.timestamp.toMillis()).toLocaleString()}</p>
                                 )}
@@ -217,9 +255,21 @@ export default function Navbar() {
 
               {/* Cart Icon */}
               {user && cartCount > 0 && (
-                <button
+                  <button
                   onClick={() => router.push("/order")}
-                  className="relative text-gray-600 hover:text-[#2e4493] focus:outline-none p-2 hover:bg-[#e5f3fa] rounded-lg transition-colors"
+                  className="relative focus:outline-none p-2 rounded-lg transition-all"
+                  style={{ 
+                    color: 'var(--text-secondary)',
+                    transition: 'all 0.3s ease' 
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = '#FF9900';
+                    e.currentTarget.style.background = 'var(--bg-elevated)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = 'var(--text-secondary)';
+                    e.currentTarget.style.background = 'transparent';
+                  }}
                   aria-label="View cart"
                 >
                   <ShoppingCartIcon className="h-6 w-6" />
@@ -233,7 +283,19 @@ export default function Navbar() {
               {user && unreadMessages > 0 && (
                 <button
                   onClick={() => router.push("/messenger")}
-                  className="relative text-gray-600 hover:text-[#2e4493] focus:outline-none p-2 hover:bg-[#e5f3fa] rounded-lg transition-colors"
+                  className="relative focus:outline-none p-2 rounded-lg transition-all"
+                  style={{ 
+                    color: 'var(--text-secondary)',
+                    transition: 'all 0.3s ease' 
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = '#FF9900';
+                    e.currentTarget.style.background = 'var(--bg-elevated)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = 'var(--text-secondary)';
+                    e.currentTarget.style.background = 'transparent';
+                  }}
                   aria-label="View messages"
                 >
                   <ChatBubbleLeftEllipsisIcon className="h-6 w-6" />
@@ -248,7 +310,7 @@ export default function Navbar() {
                 <>
                   <button
                     onClick={() => setMenuOpen(!menuOpen)}
-                    className="flex items-center gap-2 p-2 hover:bg-[#e5f3fa] rounded-lg transition-colors"
+                    className="flex items-center gap-2 p-2 hover:bg-gray-100 rounded transition-colors border border-transparent hover:border-gray-300"
                   >
                     <img
                       src={user.photoURL || "/default-avatar.png"}
@@ -261,19 +323,26 @@ export default function Navbar() {
                   </button>
 
                   {menuOpen && (
-                    <div className="absolute right-0 top-full mt-2 w-64 bg-white rounded-xl shadow-lg border border-gray-200 z-50">
-                      <div className="p-4 border-b border-gray-100">
-                        <div className="flex items-center space-x-3">
+                    <div 
+                      className="absolute right-0 top-full mt-2 rounded z-50 overflow-hidden bg-white"
+                      style={{
+                        width: '280px',
+                        border: '1px solid #D5D9D9',
+                        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)'
+                      }}
+                    >
+                      <div className="p-4" style={{ borderBottom: '1px solid var(--border-subtle)' }}>
+                        <div className="flex items-center space-x-3 min-w-0">
                           <img
                             src={user.photoURL || "/default-avatar.png"}
                             alt="User"
-                            className="w-10 h-10 rounded-full"
+                            className="w-10 h-10 rounded-full flex-shrink-0"
                           />
-                          <div>
-                            <p className="font-semibold text-gray-800">
+                          <div className="min-w-0 flex-1 overflow-hidden">
+                            <p className="font-semibold truncate" style={{ color: 'var(--text-primary)' }}>
                               {user.displayName || "User"}
                             </p>
-                            <p className="text-sm text-gray-500 truncate">
+                            <p className="text-sm truncate" style={{ color: 'var(--text-muted)' }}>
                               {user.email}
                             </p>
                           </div>
@@ -286,7 +355,16 @@ export default function Navbar() {
                             setMenuOpen(false);
                             router.push("/account");
                           }}
-                          className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-[#e5f3fa] hover:text-[#2e4493] rounded-lg transition-colors"
+                          className="w-full text-left px-3 py-2 text-sm rounded-lg transition-all"
+                          style={{ color: 'var(--text-secondary)' }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.background = '#F5F5F5';
+                            e.currentTarget.style.color = 'var(--accent-orange)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.background = 'transparent';
+                            e.currentTarget.style.color = 'var(--text-secondary)';
+                          }}
                         >
                           Account Details
                         </button>
@@ -295,7 +373,16 @@ export default function Navbar() {
                             setMenuOpen(false);
                             router.push("/dashboard");
                           }}
-                          className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-[#e5f3fa] hover:text-[#2e4493] rounded-lg transition-colors"
+                          className="w-full text-left px-3 py-2 text-sm rounded-lg transition-all"
+                          style={{ color: 'var(--text-secondary)' }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.background = '#F5F5F5';
+                            e.currentTarget.style.color = 'var(--accent-orange)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.background = 'transparent';
+                            e.currentTarget.style.color = 'var(--text-secondary)';
+                          }}
                         >
                           My Dashboard
                         </button>
@@ -304,7 +391,16 @@ export default function Navbar() {
                             setMenuOpen(false);
                             router.push("/order");
                           }}
-                          className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-[#e5f3fa] hover:text-[#2e4493] rounded-lg transition-colors"
+                          className="w-full text-left px-3 py-2 text-sm rounded-lg transition-all"
+                          style={{ color: 'var(--text-secondary)' }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.background = '#F5F5F5';
+                            e.currentTarget.style.color = 'var(--accent-orange)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.background = 'transparent';
+                            e.currentTarget.style.color = 'var(--text-secondary)';
+                          }}
                         >
                           My Orders
                         </button>
@@ -313,7 +409,16 @@ export default function Navbar() {
                             setMenuOpen(false);
                             router.push("/wishlist");
                           }}
-                          className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-[#e5f3fa] hover:text-[#2e4493] rounded-lg transition-colors"
+                          className="w-full text-left px-3 py-2 text-sm rounded-lg transition-all"
+                          style={{ color: 'var(--text-secondary)' }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.background = '#F5F5F5';
+                            e.currentTarget.style.color = 'var(--accent-orange)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.background = 'transparent';
+                            e.currentTarget.style.color = 'var(--text-secondary)';
+                          }}
                         >
                           My Wishlist
                         </button>
@@ -322,7 +427,16 @@ export default function Navbar() {
                             setMenuOpen(false);
                             router.push("/compare");
                           }}
-                          className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-[#e5f3fa] hover:text-[#2e4493] rounded-lg transition-colors"
+                          className="w-full text-left px-3 py-2 text-sm rounded-lg transition-all"
+                          style={{ color: 'var(--text-secondary)' }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.background = '#F5F5F5';
+                            e.currentTarget.style.color = 'var(--accent-orange)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.background = 'transparent';
+                            e.currentTarget.style.color = 'var(--text-secondary)';
+                          }}
                         >
                           Compare Products
                         </button>
@@ -331,13 +445,29 @@ export default function Navbar() {
                             setMenuOpen(false);
                             router.push("/agent-chat");
                           }}
-                          className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-[#e5f3fa] hover:text-[#2e4493] rounded-lg transition-colors"
+                          className="w-full text-left px-3 py-2 text-sm rounded-lg transition-all"
+                          style={{ color: 'var(--text-secondary)' }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.background = '#F5F5F5';
+                            e.currentTarget.style.color = 'var(--accent-orange)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.background = 'transparent';
+                            e.currentTarget.style.color = 'var(--text-secondary)';
+                          }}
                         >
                           Customer Service Chat
                         </button>
                         <button
                           onClick={handleLogout}
-                          className="w-full text-left px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                          className="w-full text-left px-3 py-2 text-sm rounded-lg transition-all"
+                          style={{ color: 'var(--accent-red)' }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.background = 'rgba(198, 40, 40, 0.1)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.background = 'transparent';
+                          }}
                         >
                           Sign Out
                         </button>
@@ -348,7 +478,7 @@ export default function Navbar() {
               ) : (
                 <button
                   onClick={() => router.push("/register")}
-                  className="bg-[#0865ff] text-white hover:bg-[#075ae6] transition-colors px-4 py-2 text-sm rounded-full font-medium"
+                  className="bg-[#FF9900] text-white hover:bg-[#E88900] transition-colors px-4 py-2 text-sm rounded font-medium"
                 >
                   Sign In
                 </button>

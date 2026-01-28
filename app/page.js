@@ -19,7 +19,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 const TrendingProducts = dynamic(() => import("@/components/TrendingProducts"), {
   ssr: true,
   loading: () => (
-    <div className="bg-gray-50 rounded-2xl shadow-sm p-4">
+    <div className="rounded-2xl p-4 card">
       <SkeletonLoader type="trending" />
     </div>
   ),
@@ -44,8 +44,8 @@ const FeaturedProducts = dynamic(() => import("@/components/FeaturedProducts"), 
 const Categories = dynamic(() => import("@/components/Categories"), {
   ssr: true,
   loading: () => (
-    <div className="bg-gray-50 rounded-2xl shadow-sm p-4 mt-2">
-      <h2 className="text-xl font-bold text-gray-800 mb-3">Categories</h2>
+    <div className="rounded-2xl p-4 mt-2 card">
+                <h2 className="text-xl font-bold mb-3" style={{ color: 'var(--text-primary)' }}>Categories</h2>
       <SkeletonLoader type="category" />
     </div>
   ),
@@ -417,7 +417,7 @@ export default function Home() {
   // Don't render anything until client-side
   if (!isClient) {
     return (
-      <div className="min-h-screen bg-[#255cdc] flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-white">
         <CachedLogo
           variant="loading"
           width={64}
@@ -478,15 +478,15 @@ export default function Home() {
 
       {/* Main Layout - Only render when loading screen is hidden */}
       {!showLoadingScreen && (
-        <div className="min-h-screen bg-[#255cdc]" data-page="home">
+        <div className="min-h-screen bg-white" data-page="home">
         {/* Desktop Layout */}
         <div className="hidden md:block">
           <div className="max-w-7xl mx-auto px-1 pt-2 pb-3">
             {/* Top Row - Categories, Trending Products, and Featured Deal */}
             <div className="grid grid-cols-[280px_1fr_300px] gap-3 mb-4">
               {/* Categories */}
-              <section className="bg-gray-50 rounded-2xl shadow-sm p-4 h-[364px] flex flex-col overflow-hidden">
-                <h2 className="text-xl font-bold text-gray-800 mb-3 flex-shrink-0">Categories</h2>
+              <section className="rounded-2xl p-4 h-[364px] flex flex-col overflow-hidden card">
+                <h2 className="text-xl font-bold mb-3 flex-shrink-0" style={{ color: 'var(--text-primary)' }}>Categories</h2>
                 <div className="flex-1 overflow-y-auto pr-2 categories-scroll">
                 <Categories 
                   onCategorySelect={setSelectedCategory} 
@@ -496,19 +496,19 @@ export default function Home() {
               </section>
 
               {/* Trending Products */}
-              <section className="bg-gray-50 rounded-2xl shadow-sm p-0 h-[364px] flex flex-col overflow-hidden">
+              <section className="rounded-2xl p-0 h-[364px] flex flex-col overflow-hidden card">
                 <div className="h-full w-full min-h-0 flex flex-col">
                 <TrendingProducts onLoadComplete={() => setTrendingProductsLoaded(true)} />
                 </div>
               </section>
 
               {/* Featured Deal */}
-              <section className="bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl p-4 text-white h-[364px]">
+              <section className="bg-gradient-to-br from-orange-500 to-orange-600 rounded p-4 text-white h-[364px] border border-orange-400">
                 <div className="h-full flex flex-col justify-center items-center text-center">
                   <div>
                     <h3 className="text-2xl font-bold mb-4">Special Offer</h3>
-                    <p className="text-lg mb-6">Get 20% off on all medical equipment this month!</p>
-                    <button className="bg-white text-green-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors">
+                    <p className="text-lg mb-6">Get 20% off on all electronics this month!</p>
+                    <button className="bg-white text-orange-600 px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors border border-orange-300">
                       Shop Now
                     </button>
                   </div>
@@ -554,7 +554,7 @@ export default function Home() {
           <div className="px-1 py-1">
 
             {/* Mobile Categories */}
-            <div className="bg-white rounded-xl py-3 mb-1 mt-[15px]">
+            <div className="bg-white rounded py-3 mb-1 mt-[15px] border border-gray-200">
               <Categories 
                 onCategorySelect={setSelectedCategory} 
                 onLoadComplete={() => setCategoriesLoaded(true)}
@@ -562,14 +562,14 @@ export default function Home() {
             </div>
 
             {/* Trending Products */}
-            <section className="bg-white rounded-xl mb-1">
-              <h2 className="hidden text-xl font-bold text-gray-800 mb-3 px-2">Trending Products</h2>
+            <section className="rounded-xl mb-1 card">
+              <h2 className="hidden text-xl font-bold mb-3 px-2" style={{ color: 'var(--text-primary)' }}>Trending Products</h2>
               <TrendingProducts onLoadComplete={() => setTrendingProductsLoaded(true)} />
             </section>
 
             {/* Featured Products */}
             <section className="mb-1">
-              <h2 className="hidden text-xl font-bold text-gray-800 mb-3 px-2">Featured Products</h2>
+              <h2 className="hidden text-xl font-bold mb-3 px-2" style={{ color: 'var(--text-primary)' }}>Featured Products</h2>
               <FeaturedProducts 
                 selectedCategory={selectedCategory} 
                 onLoadComplete={() => setFeaturedProductsLoaded(true)}

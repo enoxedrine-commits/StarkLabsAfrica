@@ -124,23 +124,41 @@ export default function Categories({ onCategorySelect, isSidebar = false, onLoad
   if (isSidebar) {
     return (
       <div className="flex flex-col gap-2">
-        <h2 className="text-sm font-bold text-gray-800 mb-2">Categories</h2>
+        <h2 className="text-sm font-bold mb-2" style={{ color: 'var(--text-primary)' }}>Categories</h2>
         {categories.map((cat) => (
           <Link href={`/category/${cat.slug}`} key={cat.id}>
             <div
-              className="cursor-pointer flex items-center gap-2 p-1 rounded-lg hover:bg-gray-50 transition-colors"
+              className="cursor-pointer flex items-center gap-2 p-1 rounded-lg transition-all"
+              style={{ 
+                background: selectedCategoryId === cat.id ? 'var(--bg-elevated)' : 'transparent'
+              }}
+              onMouseEnter={(e) => {
+                if (selectedCategoryId !== cat.id) {
+                  e.currentTarget.style.background = 'var(--bg-elevated)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (selectedCategoryId !== cat.id) {
+                  e.currentTarget.style.background = 'transparent';
+                }
+              }}
               onClick={() => handleCategoryClick(cat)}
             >
                 <div
-                  className={`relative w-[24px] h-[24px] bg-gray-100 rounded-md overflow-hidden shadow-sm flex items-center justify-center ${
+                  className={`relative w-[24px] h-[24px] rounded-md overflow-hidden flex items-center justify-center transition-all ${
                     selectedCategoryId === cat.id
-                      ? "border-2 border-blue-500 bg-blue-50"
-                      : ""
+                      ? "border-2"
+                      : "border border-[var(--border-subtle)]"
                   }`}
+                  style={{ 
+                    background: '#FFFFFF',
+                    borderColor: selectedCategoryId === cat.id ? '#FF9900' : '#D5D9D9',
+                    boxShadow: selectedCategoryId === cat.id ? '0 0 0 2px rgba(255, 153, 0, 0.2)' : 'none'
+                  }}
                 >
                   {/* Skeleton placeholder */}
                   {!imageLoadingStates[cat.id] && (
-                    <div className="absolute inset-0 bg-gray-200 animate-pulse rounded-md" />
+                    <div className="absolute inset-0 animate-pulse rounded-md skeleton-bg" />
                   )}
                   <Image
                     src={getImageSrc(cat) || 'data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 width=%2790%27 height=%2790%27><rect width=%27100%25%27 height=%27100%25%27 fill=%27%23e5e7eb%27/></svg>'}
@@ -155,11 +173,12 @@ export default function Categories({ onCategorySelect, isSidebar = false, onLoad
                     onError={() => handleImageError(cat.id)}
                   />
                 </div>
-              <span className={`text-xs font-medium line-clamp-2 ${
-                selectedCategoryId === cat.id
-                  ? "text-blue-700 font-semibold"
-                  : "text-gray-700"
-              }`}>
+              <span className="text-xs font-medium line-clamp-2 transition-all"
+                style={{ 
+                  color: selectedCategoryId === cat.id ? '#FF9900' : 'var(--text-secondary)',
+                  fontWeight: selectedCategoryId === cat.id ? '600' : '500'
+                }}
+              >
                 {cat.name}
               </span>
             </div>
@@ -185,15 +204,20 @@ export default function Categories({ onCategorySelect, isSidebar = false, onLoad
                   onClick={() => handleCategoryClick(cat)}
                 >
                   <div
-                    className={`relative w-[60px] h-[60px] bg-gray-100 rounded-[18px] overflow-hidden mx-auto shadow-md ${
+                    className={`relative w-[60px] h-[60px] rounded-[18px] overflow-hidden mx-auto transition-all ${
                       selectedCategoryId === cat.id
-                        ? "border-2 border-sky-400"
-                        : ""
+                        ? "border-2"
+                        : "border border-[var(--border-subtle)]"
                     }`}
+                    style={{ 
+                      background: '#FFFFFF',
+                      borderColor: selectedCategoryId === cat.id ? 'var(--accent-blue)' : 'var(--border-subtle)',
+                      boxShadow: selectedCategoryId === cat.id ? '0 0 12px var(--glow-blue)' : '0 2px 8px rgba(0,0,0,0.2)'
+                    }}
                   >
                     {/* Skeleton placeholder */}
                     {!imageLoadingStates[cat.id] && (
-                      <div className="absolute inset-0 bg-gray-200 animate-pulse rounded-[18px]" />
+                      <div className="absolute inset-0 animate-pulse rounded-[18px] skeleton-bg" />
                     )}
                     <Image
                       src={getImageSrc(cat) || 'data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 width=%2790%27 height=%2790%27><rect width=%27100%25%27 height=%27100%25%27 fill=%27%23e5e7eb%27/></svg>'}
@@ -208,7 +232,11 @@ export default function Categories({ onCategorySelect, isSidebar = false, onLoad
                       onError={() => handleImageError(cat.id)}
                     />
                   </div>
-                  <p className="mt-1 text-[12px] font-medium text-gray-700 leading-tight line-clamp-2">
+                  <p className="mt-1 text-[12px] font-medium leading-tight line-clamp-2 transition-all"
+                    style={{ 
+                      color: selectedCategoryId === cat.id ? 'var(--accent-blue)' : 'var(--text-secondary)'
+                    }}
+                  >
                     {cat.name}
                   </p>
                 </div>
@@ -224,19 +252,37 @@ export default function Categories({ onCategorySelect, isSidebar = false, onLoad
           {categories.map((cat) => (
             <Link href={`/category/${cat.slug}`} key={cat.id}>
               <div
-                className="cursor-pointer flex items-center gap-2 py-0.5 px-1 rounded-lg hover:bg-gray-50 transition-colors"
+                className="cursor-pointer flex items-center gap-2 py-0.5 px-1 rounded-lg transition-all"
+                style={{ 
+                  background: selectedCategoryId === cat.id ? '#FFF5E6' : 'transparent'
+                }}
+                onMouseEnter={(e) => {
+                  if (selectedCategoryId !== cat.id) {
+                    e.currentTarget.style.background = '#F5F5F5';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (selectedCategoryId !== cat.id) {
+                    e.currentTarget.style.background = 'transparent';
+                  }
+                }}
                 onClick={() => handleCategoryClick(cat)}
               >
               <div
-                className={`relative w-[28px] h-[28px] bg-gray-100 rounded-md overflow-hidden shadow-sm flex items-center justify-center ${
+                className={`relative w-[28px] h-[28px] rounded-md overflow-hidden flex items-center justify-center transition-all ${
                   selectedCategoryId === cat.id
-                    ? "border-2 border-blue-500 bg-blue-50"
-                    : ""
+                    ? "border-2"
+                    : "border border-[var(--border-subtle)]"
                 }`}
+                style={{ 
+                  background: '#FFFFFF',
+                  borderColor: selectedCategoryId === cat.id ? 'var(--accent-blue)' : 'var(--border-subtle)',
+                  boxShadow: selectedCategoryId === cat.id ? '0 0 8px var(--glow-blue)' : 'none'
+                }}
               >
                 {/* Skeleton placeholder */}
                 {!imageLoadingStates[cat.id] && (
-                  <div className="absolute inset-0 bg-gray-200 animate-pulse rounded-md" />
+                  <div className="absolute inset-0 animate-pulse rounded-md skeleton-bg" />
                 )}
                 <Image
                   src={getImageSrc(cat) || 'data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 width=%2790%27 height=%2790%27><rect width=%27100%25%27 height=%27100%25%27 fill=%27%23e5e7eb%27/></svg>'}
@@ -251,11 +297,13 @@ export default function Categories({ onCategorySelect, isSidebar = false, onLoad
                   onError={() => handleImageError(cat.id)}
                 />
               </div>
-                <span className={`text-sm font-medium line-clamp-1 ${
-                  selectedCategoryId === cat.id
-                    ? "text-blue-700 font-semibold"
-                    : "text-gray-700"
-                }`}>
+                <span className="text-sm font-medium line-clamp-1 transition-all"
+                  style={{ 
+                    color: selectedCategoryId === cat.id ? 'var(--accent-blue)' : 'var(--text-secondary)',
+                    fontWeight: selectedCategoryId === cat.id ? '600' : '500',
+                    textShadow: selectedCategoryId === cat.id ? '0 0 8px var(--glow-blue)' : 'none'
+                  }}
+                >
                   {cat.name}
                 </span>
               </div>

@@ -30,7 +30,7 @@ export default function LoadingScreen({ onComplete }) {
   }, [onComplete]);
 
   return (
-    <div className="fixed inset-0 bg-[#255cdc] flex items-center justify-center z-[200]">
+    <div className="fixed inset-0 flex items-center justify-center z-[200] bg-white">
       <div className="text-center">
         {/* Logo Area */}
         <div className="mb-8">
@@ -45,24 +45,28 @@ export default function LoadingScreen({ onComplete }) {
 
         {/* Progress Bar */}
         <div className="w-64 mx-auto mb-4">
-          <div className="bg-white/30 rounded-full h-2 overflow-hidden">
+          <div className="rounded-full h-2 overflow-hidden" style={{ background: 'rgba(0, 179, 255, 0.2)' }}>
             <div 
-              className="bg-white h-full rounded-full transition-all duration-300 ease-out"
-              style={{ width: `${Math.min(progress, 100)}%` }}
+              className="h-full rounded-full transition-all duration-300 ease-out"
+              style={{ 
+                width: `${Math.min(progress, 100)}%`,
+                background: 'linear-gradient(90deg, var(--accent-blue), var(--accent-blue))',
+                boxShadow: '0 0 8px var(--glow-blue)'
+              }}
             />
           </div>
         </div>
 
         {/* Progress Percentage */}
-        <p className="text-sm text-white">
+        <p className="text-sm" style={{ color: 'var(--text-primary)' }}>
           {Math.round(Math.min(progress, 100))}%
         </p>
 
         {/* Loading Dots Animation */}
         <div className="flex justify-center mt-6 space-x-1">
-          <div className="w-2 h-2 bg-white rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-          <div className="w-2 h-2 bg-white rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-          <div className="w-2 h-2 bg-white rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+          <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: 'var(--accent-blue)', animationDelay: '0ms', boxShadow: '0 0 8px var(--glow-blue)' }}></div>
+          <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: 'var(--accent-blue)', animationDelay: '150ms', boxShadow: '0 0 8px var(--glow-blue)' }}></div>
+          <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: 'var(--accent-blue)', animationDelay: '300ms', boxShadow: '0 0 8px var(--glow-blue)' }}></div>
         </div>
       </div>
     </div>

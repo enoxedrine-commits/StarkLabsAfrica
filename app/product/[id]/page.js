@@ -224,7 +224,7 @@ export default function ProductDetail() {
   });
 
   return (
-    <>
+    <div style={{ background: 'var(--bg-primary)', minHeight: '100vh', paddingTop: '88px' }}>
       <div className="max-w-6xl md:px-6">
         <div className="flex flex-col md:flex-row gap-2 md:gap-6">
           {/* Image Gallery */}
@@ -240,16 +240,16 @@ export default function ProductDetail() {
           <div className="flex-1 ml-1 mr-1">
             <div className="w-full flex flex-col gap-2">
               {/* Product Name, Details & Price */}
-              <div className="bg-white p-4 rounded-md border border-gray-100">
-                <p className="text-xl font-semibold text-gray-800 uppercase truncate mb-2">
+              <div className="p-4 rounded-md card">
+                <p className="text-xl font-semibold truncate mb-2" style={{ color: 'var(--text-primary)' }}>
                   {product.name || 'Unnamed Product'}
                 </p>
-                <p className="text-[14px] text-gray-500 mb-1">SKU : {product.sku}</p>
-                <p className="text-[11px] text-gray-500 break-words mb-4">CODE : {product.productCode}</p>
+                <p className="text-[14px] mb-1" style={{ color: 'var(--text-muted)' }}>SKU: {product.sku}</p>
+                <p className="text-[11px] break-words mb-4" style={{ color: 'var(--text-muted)' }}>CODE: {product.productCode}</p>
                 
-                <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 space-y-2">
+                <div className="rounded-lg p-4 space-y-2" style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border-subtle)' }}>
                   <div className="flex items-center justify-between flex-wrap gap-2">
-                    <span className="text-[15px] font-bold text-gray-900">
+                    <span className="text-[15px] font-bold" style={{ color: 'var(--accent-blue)' }}>
                       {formatPrice(product.discount > 0
                         ? product.price * (1 - product.discount / 100)
                         : product.price
@@ -257,7 +257,7 @@ export default function ProductDetail() {
                     </span>
                     <div className="flex items-center gap-2">
                       {product.discount > 0 && (
-                        <span className="line-through text-gray-500 text-[15px]">
+                        <span className="line-through text-[15px]" style={{ color: 'var(--text-muted)' }}>
                           {formatPrice(product.price)}
                         </span>
                       )}
@@ -273,20 +273,20 @@ export default function ProductDetail() {
               </div>
 
               {/* Description */}
-              <div className="bg-white p-4 rounded-md border border-gray-100">
-                <h3 className="text-sm font-semibold text-gray-800 mb-1">Product Description</h3>
-                <p className="text-xs text-gray-600 leading-relaxed">
+              <div className="p-4 rounded-md card">
+                <h3 className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>Product Description</h3>
+                <p className="text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                   {product.description || "No description provided for this product."}
                 </p>
               </div>
 
               {/* Additional Details */}
               {product.warranty && (
-                <div className="bg-white p-4 rounded-md border border-gray-100">
-                  <h3 className="text-sm font-semibold text-gray-800 mb-2">Additional Details</h3>
-                  <div className="text-xs text-gray-600">
+                <div className="p-4 rounded-md card">
+                  <h3 className="text-sm font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>Additional Details</h3>
+                  <div className="text-xs" style={{ color: 'var(--text-secondary)' }}>
                     <div className="flex items-start justify-between gap-4">
-                      <span className="font-medium text-gray-700">Warranty</span>
+                      <span className="font-medium" style={{ color: 'var(--text-primary)' }}>Warranty</span>
                       <span className="text-right">{product.warranty}</span>
                     </div>
                   </div>
@@ -295,12 +295,12 @@ export default function ProductDetail() {
 
               {/* Attributes */}
               {normalizedAttributes.length > 0 && (
-                <div className="bg-white p-4 rounded-md border border-gray-100">
-                  <h3 className="text-sm font-semibold text-gray-800 mb-1">Product Attributes</h3>
-                  <ul className="text-xs text-gray-600 space-y-1">
+                <div className="p-4 rounded-md card">
+                  <h3 className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>Product Attributes</h3>
+                  <ul className="text-xs space-y-1" style={{ color: 'var(--text-secondary)' }}>
                     {normalizedAttributes.map((attr, index) => (
                       <li key={index} className="flex justify-between">
-                        <span className="font-medium">{attr.name}:</span>
+                        <span className="font-medium" style={{ color: 'var(--text-primary)' }}>{attr.name}:</span>
                         <span>{attr.description}</span>
                       </li>
                     ))}
@@ -309,13 +309,13 @@ export default function ProductDetail() {
               )}
 
               {/* Quantity */}
-              <div className="bg-white p-4 rounded-md border border-gray-100">
-                <h3 className="text-sm font-semibold text-gray-800 mb-1">Select Quantity</h3>
+              <div className="p-4 rounded-md card">
+                <h3 className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>Select Quantity</h3>
                 <QuantityInput quantity={quantity} setQuantity={setQuantity} />
               </div>
 
               {/* Action Buttons */}
-              <div className="bg-white p-4 border border-gray-100 shadow-sm flex flex-col gap-4">
+              <div className="p-4 flex flex-col gap-4 card">
                 {/* Wishlist and Comparison */}
                 <div className="flex justify-center gap-4 mb-2">
                   <WishlistButton product={product} size="large" />
@@ -326,46 +326,46 @@ export default function ProductDetail() {
                 <div className="flex flex-col sm:flex-row gap-3 w-full">
                   <button
                     onClick={handleAddToOrder}
-                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-md text-sm font-semibold shadow-sm transition-all duration-200"
+                    className="flex-1 px-5 py-2.5 rounded-md text-sm font-semibold transition-all duration-200 btn-primary"
                   >
-                    🛒 Add to Order
+                    Add to Order
                   </button>
                   <button
                     onClick={handleBuyNow}
-                    className="flex-1 border border-gray-300 hover:border-gray-400 text-gray-700 bg-white hover:bg-gray-50 px-5 py-2.5 rounded-md text-sm font-medium shadow-sm transition-all duration-200"
+                    className="flex-1 px-5 py-2.5 rounded-md text-sm font-medium transition-all duration-200 btn-secondary"
                   >
-                    💳 Buy Now / View Orders
+                    Buy Now / View Orders
                   </button>
                 </div>
               </div>
 
               {/* Contact */}
-              <div className="bg-white p-4 rounded-md border border-gray-100 shadow-sm">
-                <h3 className="text-sm font-semibold text-gray-800 mb-2 text-center">Need Help?</h3>
+              <div className="p-4 rounded-md card">
+                <h3 className="text-sm font-semibold mb-2 text-center" style={{ color: 'var(--text-primary)' }}>Need Help?</h3>
                 <ContactButtons phoneNumber="+256700000000" />
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Related Products */}
-      <div className="pt-6 pb-12 md:px-6">
-        <h3 className="text-center text-sm font-medium text-gray-700 mb-1">
-          Products related to
-          <span className="font-semibold text-gray-900"> {product.name} </span>
-        </h3>
-        <RelatedProducts
-          selectedCategory={product?.category}
-          keyword={product.name?.split(" ").slice(0, 2).join(" ").toLowerCase()}
-          name={product.name}
-          manufacturer={product?.manufacturer}
-          tags={product?.tags}
-          excludeId={product.id}
-          cardVariant="compact"
-        />
+        {/* Related Products */}
+        <div className="pt-6 pb-12 md:px-6">
+          <h3 className="text-center text-sm font-medium mb-1" style={{ color: 'var(--text-secondary)' }}>
+            Products related to
+            <span className="font-semibold" style={{ color: 'var(--text-primary)' }}> {product.name} </span>
+          </h3>
+          <RelatedProducts
+            selectedCategory={product?.category}
+            keyword={product.name?.split(" ").slice(0, 2).join(" ").toLowerCase()}
+            name={product.name}
+            manufacturer={product?.manufacturer}
+            tags={product?.tags}
+            excludeId={product.id}
+            cardVariant="compact"
+          />
+        </div>
       </div>
-    </>
+    </div>
   );
 }
 

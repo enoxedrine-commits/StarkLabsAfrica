@@ -35,7 +35,7 @@ const ProductCard = ({ badge, product, variant = 'default', isFirst = false, lar
 
   const imageUrl = getImageUrl(product, variant);
 
-  const commonClasses = 'bg-gray-50 shadow-sm hover:shadow-md rounded-3xl transition duration-200';
+  const commonClasses = 'card transition-all duration-300';
   const softShadow = 'shadow-[0_4px_12px_rgba(0,0,0,0.05)]';
   const productCodeText = product.sku || 'N/A';
 
@@ -67,10 +67,11 @@ const ProductCard = ({ badge, product, variant = 'default', isFirst = false, lar
       <div className="relative w-full h-48 mb-3">
         <Image {...imageProps} fill sizes="(max-width: 768px) 100vw, 400px" className="object-cover rounded-xl" />
       </div>
-      <h2 className="hidden md:block text-lg font-semibold">{formatProductName(product.name, settings)}</h2>
-      <p className="text-sm text-gray-400 italic mb-1">CODE: {productCodeText}</p>
-      <p className="text-gray-600 mt-1">{product.description}</p>
-      <p className="text-blue-600 font-bold mt-2">UGX {discountedPrice.toLocaleString()}</p>
+      <h2 className="hidden md:block text-lg font-semibold" style={{ color: 'var(--text-primary)' }}>{formatProductName(product.name, settings)}</h2>
+      <p className="text-sm italic mb-1" style={{ color: 'var(--text-muted)' }}>{product.chipType || product.boardType || 'Component'}</p>
+      <p className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>{product.voltage || product.specs || ''}</p>
+      <p className="text-sm mb-1" style={{ color: 'var(--text-secondary)' }}>{product.description}</p>
+      <p className="font-bold mt-2 text-[#B12704]">UGX {discountedPrice.toLocaleString()}</p>
     </div>
   );
 
@@ -83,14 +84,14 @@ const ProductCard = ({ badge, product, variant = 'default', isFirst = false, lar
         <h2 className="hidden md:block text-lg font-semibold">{formatProductName(product.name, settings)}</h2>
         <p className="text-sm text-gray-400 italic mb-1">CODE: {productCodeText}</p>
         <p className="text-gray-600 mt-1 line-clamp-2">{product.description}</p>
-        <p className="text-blue-600 font-bold mt-2">UGX {discountedPrice.toLocaleString()}</p>
+        <p className="text-[#B12704] font-bold mt-2">UGX {discountedPrice.toLocaleString()}</p>
       </div>
     </div>
   );
 
   const renderLandscapeMain = () => (
-    <div className={`bg-gray-50 border border-gray-200 rounded-3xl overflow-hidden hover:shadow-md transition flex w-full max-w-2xl mx-auto mb-3`}>
-      <div className="relative w-32 sm:w-40 h-32 sm:h-40 bg-gray-50 flex-shrink-0">
+    <div className={`rounded-3xl overflow-hidden transition flex w-full max-w-2xl mx-auto mb-3 card`}>
+      <div className="relative w-32 sm:w-40 h-32 sm:h-40 flex-shrink-0 bg-gray-50">
         <Image {...imageProps} fill sizes="(max-width: 640px) 128px, 160px" className="object-cover rounded-l-2xl" />
       </div>
       <div className="flex flex-col justify-between p-4 w-full">
@@ -116,16 +117,16 @@ const ProductCard = ({ badge, product, variant = 'default', isFirst = false, lar
   );
 
   const renderLandscapeMain02 = () => (
-    <div className={`relative bg-gray-50 border border-gray-200 rounded-3xl overflow-hidden hover:shadow-md transition flex w-full ${largeDesktop ? 'max-w-5xl md:h-72' : 'w-full'} mx-auto`}>
+    <div className={`relative rounded-3xl overflow-hidden transition flex w-full ${largeDesktop ? 'max-w-5xl md:h-72' : 'w-full'} mx-auto card`}>
       
       {/* Badge */}
       {badge && (
-        <div className="absolute top-2 left-2 z-10 bg-[#0865ff] text-white text-xs font-medium px-2.5 py-0.5 rounded-full shadow-sm">
+        <div className="absolute top-2 left-2 z-10 text-white text-xs font-medium px-2.5 py-0.5 rounded-full shadow-sm btn-primary" style={{ fontSize: '0.75rem' }}>
           {badge}
         </div>
       )}
 
-      <div className={`relative ${largeDesktop ? 'w-96 h-80 md:w-[500px] md:h-96' : 'w-48 sm:w-52 h-48 sm:h-52'} bg-gray-50 flex-shrink-0`}>
+      <div className={`relative ${largeDesktop ? 'w-96 h-80 md:w-[500px] md:h-96' : 'w-48 sm:w-52 h-48 sm:h-52'} flex-shrink-0 bg-gray-50`}>
         <Image {...imageProps} fill sizes={largeDesktop ? "(max-width: 768px) 384px, 500px" : "(max-width: 640px) 192px, 208px"} className="object-cover rounded-l-2xl" />
       </div>
 
@@ -158,14 +159,14 @@ const ProductCard = ({ badge, product, variant = 'default', isFirst = false, lar
 
   const renderCarousel = () => (
     <div 
-      className={`relative bg-white rounded-2xl overflow-hidden hover:shadow-md transition flex w-full h-full max-w-5xl mx-auto cursor-pointer`}
+      className={`relative rounded-2xl overflow-hidden transition flex w-full h-full max-w-5xl mx-auto cursor-pointer card`}
       style={{ maxHeight: '100%', height: '100%' }}
       onClick={onClick}
     >
       
       {/* Badge */}
       {badge && (
-        <div className="absolute top-4 left-4 z-10 bg-[#0865ff] text-white text-xs font-medium px-2.5 py-0.5 rounded-full shadow-sm">
+        <div className="absolute top-4 left-4 z-10 bg-[#FF9900] text-white text-xs font-medium px-2.5 py-0.5 rounded shadow-sm">
           {badge}
         </div>
       )}
@@ -176,10 +177,10 @@ const ProductCard = ({ badge, product, variant = 'default', isFirst = false, lar
       </div>
 
       {/* Content: name (uppercase), description, price - centered vertically */}
-      <div className="flex flex-1 flex-col justify-center items-center p-8 pl-10 w-full min-h-0">
+      <div className="flex flex-1 flex-col justify-center items-center px-6 w-full min-h-0">
         <div className="w-full">
           {product.name && (
-            <h3 className="text-2xl font-normal text-gray-800 line-clamp-2 mb-2 uppercase">
+            <h3 className="text-2xl font-normal text-gray-800 line-clamp-2 mb-2">
               {product.name}
             </h3>
           )}
@@ -198,7 +199,7 @@ const ProductCard = ({ badge, product, variant = 'default', isFirst = false, lar
 
   const renderMobileCarousel = () => (
     <div 
-      className={`relative bg-white rounded-2xl overflow-hidden hover:shadow-md transition flex w-full cursor-pointer`}
+      className={`relative rounded-2xl overflow-hidden transition flex w-full cursor-pointer card`}
       onClick={onClick}
     >
       
@@ -208,7 +209,7 @@ const ProductCard = ({ badge, product, variant = 'default', isFirst = false, lar
         
         {/* Trending Badge on Image */}
         {badge && (
-          <div className="absolute top-2 left-2 z-10 bg-[#0865ff] text-white text-xs font-medium px-2 py-1 rounded-full shadow-sm">
+          <div className="absolute top-2 left-2 z-10 bg-[#FF9900] text-white text-xs font-medium px-2 py-1 rounded shadow-sm">
             {badge}
           </div>
         )}
@@ -218,7 +219,7 @@ const ProductCard = ({ badge, product, variant = 'default', isFirst = false, lar
       <div className="flex flex-1 flex-col justify-center min-h-[11rem] pl-3 pr-3 py-4">
         <div>
           {product.name && (
-            <h3 className="text-lg font-normal text-gray-800 line-clamp-2 uppercase">
+            <h3 className="text-lg font-normal text-gray-800 line-clamp-2">
               {product.name}
             </h3>
           )}
@@ -243,19 +244,19 @@ const ProductCard = ({ badge, product, variant = 'default', isFirst = false, lar
       <h2 className="hidden md:block text-base font-semibold">{formatProductName(product.name, settings)}</h2>
       <p className="text-[7px] text-gray-400 italic mb-1">CODE: {productCodeText}</p>
       <p className="text-gray-500 text-sm mt-1 line-clamp-3">{product.description}</p>
-      <p className="text-blue-600 font-bold mt-2 text-sm">UGX {discountedPrice.toLocaleString()}</p>
+        <p className="text-[#B12704] font-bold mt-2 text-sm">UGX {discountedPrice.toLocaleString()}</p>
     </div>
   );
 
   const renderCompact = () => (
          <div 
-           className={`bg-gray-50 p-0 w-full mx-auto hover:shadow-md transition break-inside-avoid rounded-3xl cursor-pointer`}
+           className={`p-0 w-full mx-auto transition break-inside-avoid rounded-3xl cursor-pointer card`}
            onClick={onClick}
          >
            <div className="relative w-full overflow-hidden rounded-2xl" style={{ aspectRatio: '5 / 6' }}>
              {/* Skeleton placeholder with exact same dimensions */}
              {!imageLoaded && (
-               <div className="absolute inset-0 bg-gray-200 animate-pulse rounded-2xl" style={{ aspectRatio: '5 / 6' }} />
+               <div className="absolute inset-0 animate-pulse rounded-2xl skeleton-bg" style={{ aspectRatio: '5 / 6' }} />
              )}
 
              {/* Badges */}
@@ -269,7 +270,7 @@ const ProductCard = ({ badge, product, variant = 'default', isFirst = false, lar
                
                {/* Trending Badge */}
                {badge && (
-                 <div className="bg-[#0865ff] text-white text-xs font-medium px-2 py-1 rounded-full shadow-sm">
+                 <div className="bg-[#FF9900] text-white text-xs font-medium px-2 py-1 rounded shadow-sm">
                    {badge}
                  </div>
                )}
@@ -294,14 +295,14 @@ const ProductCard = ({ badge, product, variant = 'default', isFirst = false, lar
                 {formatProductName(product.name, settings)}
               </p>
 
-              <p className="text-sm text-gray-900 font-semibold mb-0.5">
+              <p className="text-sm text-[#B12704] font-semibold mb-0.5">
                 UGX {discountedPrice.toLocaleString()}
               </p>
               {shouldShowMOQ(settings) && (
                 <p className="text-xs text-gray-500 mb-0.5">1 item (MOQ)</p>
               )}
               {shouldShowSKU(settings) && (
-                <p className="text-[11px] text-blue-600 italic pb-2">
+                <p className="text-[11px] text-gray-500 italic pb-2">
                   SKU: {product.sku || 'N/A'}
                 </p>
               )}
@@ -311,7 +312,7 @@ const ProductCard = ({ badge, product, variant = 'default', isFirst = false, lar
 
   const renderCompactX = () => (
          <div 
-           className={`bg-gray-50 p-0 w-full mx-auto hover:shadow-md transition break-inside-avoid rounded-3xl cursor-pointer`}
+           className={`p-0 w-full mx-auto transition break-inside-avoid rounded-3xl cursor-pointer card`}
            onClick={onClick}
          >
                                                        <div className="relative w-full h-full sm:h-48 rounded-2xl overflow-hidden flex items-center justify-center">
@@ -326,7 +327,7 @@ const ProductCard = ({ badge, product, variant = 'default', isFirst = false, lar
            
            {/* Trending Badge */}
            {badge && (
-             <div className="bg-[#0865ff] text-white text-xs font-medium px-2 py-1 rounded-full shadow-sm">
+             <div className="bg-[#FF9900] text-white text-xs font-medium px-2 py-1 rounded shadow-sm">
                {badge}
              </div>
            )}
@@ -341,7 +342,7 @@ const ProductCard = ({ badge, product, variant = 'default', isFirst = false, lar
               <p className="text-xs text-gray-500 mb-0.5">1 item (MOQ)</p>
             )}
             {shouldShowSKU(settings) && (
-              <p className="text-[7px] text-blue-600 italic pb-2">SKU: {product.sku || "N/A"}</p>
+              <p className="text-[7px] text-gray-500 italic pb-2">SKU: {product.sku || "N/A"}</p>
             )}
          </div>
     </div>

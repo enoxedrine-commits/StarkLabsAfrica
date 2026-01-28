@@ -263,8 +263,8 @@ export default function TrendingProducts({ onLoadComplete }) {
         )}
       </Head>
 
-      {/* Desktop Slide Carousel - no padding in images mode so image fills edge to edge; p-4 for trending products */}
-      <div className={`hidden md:block h-full w-full min-h-0 flex items-center justify-center relative ${carouselMode !== "images" ? "p-4" : ""}`}>
+      {/* Desktop Slide Carousel - no padding so cards fill edge to edge */}
+      <div className="hidden md:block h-full w-full min-h-0 flex items-center justify-center relative">
         <div className="w-full h-full min-h-0 relative">
           {carouselMode === "images" &&
             imageSlides.map((image, index) => (
