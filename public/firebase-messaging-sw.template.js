@@ -5,13 +5,13 @@ importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js')
 importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js');
 
 firebase.initializeApp({
-  apiKey: "AIzaSyCsEP8dyJqNY8GL7zLbd72HYumCjKXWaVw",
-  authDomain: "starklabsafrica.firebaseapp.com",
-  projectId: "starklabsafrica",
-  storageBucket: "starklabsafrica.firebasestorage.app",
-  messagingSenderId: "842606943751",
-  appId: "1:842606943751:web:2cde963ba9943d1d0194a2",
-  measurementId: "G-ECH3K58VGV"
+  apiKey: "{{NEXT_PUBLIC_FIREBASE_API_KEY}}",
+  authDomain: "{{NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN}}",
+  projectId: "{{NEXT_PUBLIC_FIREBASE_PROJECT_ID}}",
+  storageBucket: "{{NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}}",
+  messagingSenderId: "{{NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID}}",
+  appId: "{{NEXT_PUBLIC_FIREBASE_APP_ID}}",
+  measurementId: "{{NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID}}"
 });
 
 const messaging = firebase.messaging();
@@ -74,7 +74,7 @@ async function handleNotificationClick(link) {
     try {
       const url = new URL(targetUrl);
       const isSameOrigin = url.origin === self.location.origin;
-      const projectId = "starklabsafrica";
+      const projectId = "{{NEXT_PUBLIC_FIREBASE_PROJECT_ID}}";
       const isAllowedHost =
         url.hostname === "localhost" ||
         url.hostname === "127.0.0.1" ||

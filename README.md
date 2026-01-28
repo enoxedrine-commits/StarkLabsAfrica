@@ -2,7 +2,32 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+### 1. Environment Setup
+
+**Important:** This project uses environment variables for Firebase configuration.
+
+1. Copy the environment template:
+   ```bash
+   cp .env.example .env.local
+   ```
+
+2. Fill in your Firebase credentials in `.env.local`:
+   - Get values from [Firebase Console](https://console.firebase.google.com/) → Project Settings → General → Your apps → Web app
+   - Add all `NEXT_PUBLIC_FIREBASE_*` variables
+   - Add `GOOGLE_API_KEY` for AI chat
+   - Add `NEXTAUTH_SECRET` (generate a random string)
+
+3. Update `.firebaserc` with your Firebase project ID
+
+4. See `SETUP_CHECKLIST.md` for detailed setup instructions
+
+### 2. Install Dependencies
+
+```bash
+npm install
+```
+
+### 3. Run Development Server
 
 ```bash
 npm run dev
@@ -15,6 +40,8 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+**Note:** The build script automatically injects Firebase configuration into the service worker before starting the dev server.
 
 You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 

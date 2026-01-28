@@ -15,11 +15,14 @@ const CachedLogo = ({
   const [imageError, setImageError] = useState(false);
 
   // Logo URLs for different variants
+  // Note: Update these URLs after uploading logos to your Firebase Storage
+  // Format: https://firebasestorage.googleapis.com/v0/b/{STORAGE_BUCKET}/o/{FILE_PATH}?alt=media&token={TOKEN}
+  const storageBucket = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || 'your-project-id.firebasestorage.app';
   const logoUrls = {
-    default: "https://firebasestorage.googleapis.com/v0/b/helloquip-80e20.firebasestorage.app/o/HQlogo.png?alt=media&token=580aa6cc-f6d0-4ace-bcda-8e7b6b573821",
-    footer: "https://firebasestorage.googleapis.com/v0/b/helloquip-80e20.firebasestorage.app/o/HQlogo.png?alt=media&token=580aa6cc-f6d0-4ace-bcda-8e7b6b573821",
-    loading: "https://firebasestorage.googleapis.com/v0/b/helloquip-80e20.firebasestorage.app/o/HQlogo3.png?alt=media&token=22b28cda-b3db-4508-a374-9c374d2a4294",
-    register: "https://firebasestorage.googleapis.com/v0/b/helloquip-80e20.firebasestorage.app/o/HQlogo3.png?alt=media&token=22b28cda-b3db-4508-a374-9c374d2a4294"
+    default: process.env.NEXT_PUBLIC_LOGO_URL_DEFAULT || `https://firebasestorage.googleapis.com/v0/b/${storageBucket}/o/HQlogo.png?alt=media&token=580aa6cc-f6d0-4ace-bcda-8e7b6b573821`,
+    footer: process.env.NEXT_PUBLIC_LOGO_URL_FOOTER || `https://firebasestorage.googleapis.com/v0/b/${storageBucket}/o/HQlogo.png?alt=media&token=580aa6cc-f6d0-4ace-bcda-8e7b6b573821`,
+    loading: process.env.NEXT_PUBLIC_LOGO_URL_LOADING || `https://firebasestorage.googleapis.com/v0/b/${storageBucket}/o/HQlogo3.png?alt=media&token=22b28cda-b3db-4508-a374-9c374d2a4294`,
+    register: process.env.NEXT_PUBLIC_LOGO_URL_REGISTER || `https://firebasestorage.googleapis.com/v0/b/${storageBucket}/o/HQlogo3.png?alt=media&token=22b28cda-b3db-4508-a374-9c374d2a4294`
   };
 
   // Default dimensions for different variants

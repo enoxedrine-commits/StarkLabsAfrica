@@ -270,7 +270,7 @@ export default function Home() {
       if (document.visibilityState === 'visible') {
         try {
           const cacheAge = cacheUtils.getCacheAge(CACHE_KEYS.MAIN_PRODUCTS);
-          if (cacheAge !== null && cacheAge > 10 * 60) { // 10 minutes in seconds
+          if (cacheAge !== null && cacheAge > 5 * 60) { // 5 minutes in seconds
             console.log('🔄 Page became visible, cache is stale, refreshing...');
             refreshData();
           }
@@ -466,7 +466,7 @@ export default function Home() {
       <link
         rel="preload"
         as="image"
-        href="/_next/image?url=https%3A%2F%2Ffirebasestorage.googleapis.com%2Fv0%2Fb%2Fhelloquip-80e20.appspot.com%2Fo%2Fproducts%2Fdental-chair.jpg&w=680&q=75"
+        href={process.env.NEXT_PUBLIC_PLACEHOLDER_IMAGE_URL || "/fallback.jpg"}
         fetchPriority="high"
         id="trending-preload"
       />

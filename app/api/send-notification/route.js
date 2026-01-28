@@ -196,7 +196,7 @@ export async function POST(req) {
     }
 
     const isAdminManual = !!(extraData && extraData.source === 'adminManual');
-    const hostedBase = 'https://helloquip.vercel.app';
+    const hostedBase = process.env.PUBLIC_BASE_URL || 'https://localhost:3000';
 
     let resolvedLink = null;
     try {

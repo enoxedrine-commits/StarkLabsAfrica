@@ -31,7 +31,8 @@ export default function ProductDetail() {
   const [activeImage, setActiveImage] = useState("");
   const [quantity, setQuantity] = useState(1);
 
-  const fallbackImage = "https://firebasestorage.googleapis.com/v0/b/helloquip-80e20.firebasestorage.app/o/placeholder.jpg?alt=media&token=7b4e6ab8-7a01-468c-b5f7-a19d31290045";
+  const storageBucket = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || 'your-project-id.firebasestorage.app';
+  const fallbackImage = process.env.NEXT_PUBLIC_PLACEHOLDER_IMAGE_URL || `https://firebasestorage.googleapis.com/v0/b/${storageBucket}/o/placeholder.jpg?alt=media&token=7b4e6ab8-7a01-468c-b5f7-a19d31290045`;
 
   useEffect(() => {
     window.scrollTo(0, 0);

@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "node scripts/inject-firebase-config.js && next dev",
+    "build": "node scripts/inject-firebase-config.js && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "inject-firebase": "node scripts/inject-firebase-config.js"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
