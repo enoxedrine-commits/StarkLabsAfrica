@@ -15,14 +15,26 @@ const CachedLogo = ({
   const [imageError, setImageError] = useState(false);
 
   // Logo URLs for different variants
-  // Note: Update these URLs after uploading logos to your Firebase Storage
-  // Format: https://firebasestorage.googleapis.com/v0/b/{STORAGE_BUCKET}/o/{FILE_PATH}?alt=media&token={TOKEN}
-  const storageBucket = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || 'your-project-id.firebasestorage.app';
+  // Using Slogo.png for all variants (local file in public folder)
+  // Check if env vars are placeholders and fall back to local file
+  const isPlaceholder = (url) => {
+    if (!url) return true;
+    return url.includes('your-project-id') || url.includes('YOUR_TOKEN') || url.includes('your_vapid_key');
+  };
+
   const logoUrls = {
-    default: process.env.NEXT_PUBLIC_LOGO_URL_DEFAULT || `https://firebasestorage.googleapis.com/v0/b/${storageBucket}/o/HQlogo.png?alt=media&token=580aa6cc-f6d0-4ace-bcda-8e7b6b573821`,
-    footer: process.env.NEXT_PUBLIC_LOGO_URL_FOOTER || `https://firebasestorage.googleapis.com/v0/b/${storageBucket}/o/HQlogo.png?alt=media&token=580aa6cc-f6d0-4ace-bcda-8e7b6b573821`,
-    loading: process.env.NEXT_PUBLIC_LOGO_URL_LOADING || `https://firebasestorage.googleapis.com/v0/b/${storageBucket}/o/HQlogo3.png?alt=media&token=22b28cda-b3db-4508-a374-9c374d2a4294`,
-    register: process.env.NEXT_PUBLIC_LOGO_URL_REGISTER || `https://firebasestorage.googleapis.com/v0/b/${storageBucket}/o/HQlogo3.png?alt=media&token=22b28cda-b3db-4508-a374-9c374d2a4294`
+    default: (process.env.NEXT_PUBLIC_LOGO_URL_DEFAULT && !isPlaceholder(process.env.NEXT_PUBLIC_LOGO_URL_DEFAULT)) 
+      ? process.env.NEXT_PUBLIC_LOGO_URL_DEFAULT 
+      : "/Slogo.png",
+    footer: (process.env.NEXT_PUBLIC_LOGO_URL_FOOTER && !isPlaceholder(process.env.NEXT_PUBLIC_LOGO_URL_FOOTER)) 
+      ? process.env.NEXT_PUBLIC_LOGO_URL_FOOTER 
+      : "/Slogo.png",
+    loading: (process.env.NEXT_PUBLIC_LOGO_URL_LOADING && !isPlaceholder(process.env.NEXT_PUBLIC_LOGO_URL_LOADING)) 
+      ? process.env.NEXT_PUBLIC_LOGO_URL_LOADING 
+      : "/Slogo.png",
+    register: (process.env.NEXT_PUBLIC_LOGO_URL_REGISTER && !isPlaceholder(process.env.NEXT_PUBLIC_LOGO_URL_REGISTER)) 
+      ? process.env.NEXT_PUBLIC_LOGO_URL_REGISTER 
+      : "/Slogo.png"
   };
 
   // Default dimensions for different variants
@@ -44,7 +56,7 @@ const CachedLogo = ({
     return (
       <img
         src={finalLogoUrl}
-        alt="HeloQuip Logo"
+        alt="StarkLabs Electronics Logo"
         className={className}
         onClick={onClick}
         style={{ 
@@ -59,7 +71,7 @@ const CachedLogo = ({
   return (
     <Image
       src={finalLogoUrl}
-      alt="HeloQuip Logo"
+      alt="StarkLabs Electronics Logo"
       width={dimensions.width}
       height={dimensions.height}
       className={className}

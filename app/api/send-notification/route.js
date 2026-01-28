@@ -232,7 +232,7 @@ export async function POST(req) {
       token: fcmToken,
       notification: { title: title || "", body: body || "" },
       webpush: {
-        notification: { icon: "/logo.png" },
+        notification: { icon: "/Slogo.png" },
         fcmOptions: resolvedLink ? { link: resolvedLink } : undefined,
       },
       data: dataPayload,

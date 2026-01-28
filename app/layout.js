@@ -6,7 +6,7 @@ export const metadata = {
   title: "HelloQuip",
   description: "Medical eCommerce",
   manifest: "/manifest.json",
-  icons: { icon: "/logo.png" },
+  icons: { icon: "/Slogo.png" },
   themeColor: "#0f4a73",
   viewport: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
   appleWebApp: {
@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
         
         {/* Preload critical resources */}
-        <link rel="preload" href="/logo.png" as="image" type="image/png" />
+        <link rel="preload" href="/Slogo.png" as="image" type="image/png" />
         <link rel="preload" href="/fallback.jpg" as="image" type="image/jpeg" />
         
         {/* DNS prefetch for external domains */}
@@ -50,7 +50,7 @@ export default function RootLayout({ children }) {
 
         {/* PWA Links */}
         <link rel="manifest" href="/manifest.json" />
-        <link rel="apple-touch-icon" href="/logo.png" />
+        <link rel="apple-touch-icon" href="/Slogo.png" />
       </head>
       <body className="roboto">
         <ClientWrapper>{children}</ClientWrapper>

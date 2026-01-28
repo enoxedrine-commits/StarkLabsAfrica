@@ -22,7 +22,7 @@ messaging.onBackgroundMessage(function (payload) {
   const notificationTitle = payload.notification?.title || "HalloQuip";
   const notificationOptions = {
     body: payload.notification?.body || "",
-    icon: "/logo.png",
+    icon: "/Slogo.png",
     data: payload.data || {},
   };
 
