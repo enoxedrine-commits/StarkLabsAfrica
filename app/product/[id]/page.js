@@ -298,7 +298,7 @@ export default function ProductDetail() {
             <div className="w-full flex flex-col gap-3 md:border md:border-gray-200 md:rounded-lg md:p-3">
               {/* Price */}
               <div className="flex items-center justify-between flex-wrap gap-2">
-                <span className="text-[15px] font-bold" style={{ color: 'var(--accent-blue)' }}>
+                <span className="text-lg font-bold text-black">
                   {formatPrice(product.discount > 0
                     ? product.price * (1 - product.discount / 100)
                     : product.price
