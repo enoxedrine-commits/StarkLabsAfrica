@@ -225,10 +225,11 @@ export default function ProductDetail() {
 
   return (
     <div style={{ background: 'var(--bg-primary)', minHeight: '100vh', paddingTop: '88px' }}>
-      <div className="max-w-6xl md:px-6">
-        <div className="flex flex-col md:flex-row gap-2 md:gap-6">
-          {/* Image Gallery */}
-          <div className="md:w-[40%] flex flex-col gap-4">
+      {/* 3-column product block (desktop) / stacked (mobile) */}
+      <div className="max-w-6xl mx-auto px-4 md:px-6">
+        <div className="flex flex-col md:grid gap-4 md:gap-6 md:grid-cols-[1fr_1.7fr_0.85fr]">
+          {/* Col 1: Image Gallery */}
+          <div className="md:col-span-1 flex flex-col gap-4">
             <ImageGallery
               images={allImages}
               activeImage={activeImage}
@@ -236,40 +237,16 @@ export default function ProductDetail() {
             />
           </div>
 
-          {/* Product Info */}
-          <div className="flex-1 ml-1 mr-1">
+          {/* Col 2: Name, SKU, CODE, Description, Additional, Attributes, Need Help */}
+          <div className="md:col-span-1 product-detail-cards">
             <div className="w-full flex flex-col gap-2">
-              {/* Product Name, Details & Price */}
+              {/* Product Name & Details (no price) */}
               <div className="p-4 rounded-md card">
                 <p className="text-xl font-semibold truncate mb-2" style={{ color: 'var(--text-primary)' }}>
                   {product.name || 'Unnamed Product'}
                 </p>
                 <p className="text-[14px] mb-1" style={{ color: 'var(--text-muted)' }}>SKU: {product.sku}</p>
-                <p className="text-[11px] break-words mb-4" style={{ color: 'var(--text-muted)' }}>CODE: {product.productCode}</p>
-                
-                <div className="rounded-lg p-4 space-y-2" style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border-subtle)' }}>
-                  <div className="flex items-center justify-between flex-wrap gap-2">
-                    <span className="text-[15px] font-bold" style={{ color: 'var(--accent-blue)' }}>
-                      {formatPrice(product.discount > 0
-                        ? product.price * (1 - product.discount / 100)
-                        : product.price
-                      )}
-                    </span>
-                    <div className="flex items-center gap-2">
-                      {product.discount > 0 && (
-                        <span className="line-through text-[15px]" style={{ color: 'var(--text-muted)' }}>
-                          {formatPrice(product.price)}
-                        </span>
-                      )}
-                      {product.discount > 0 && (
-                        <span className="bg-red-600 text-white text-[10px] font-semibold px-1 py-1 rounded-[10px]">
-                          {`${product.discount}%`}
-                        </span>
-                      )}
-                      <CurrencyDropdown />
-                    </div>
-                  </div>
-                </div>
+                <p className="text-[11px] break-words" style={{ color: 'var(--text-muted)' }}>CODE: {product.productCode}</p>
               </div>
 
               {/* Description */}
@@ -308,37 +285,6 @@ export default function ProductDetail() {
                 </div>
               )}
 
-              {/* Quantity */}
-              <div className="p-4 rounded-md card">
-                <h3 className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>Select Quantity</h3>
-                <QuantityInput quantity={quantity} setQuantity={setQuantity} />
-              </div>
-
-              {/* Action Buttons */}
-              <div className="p-4 flex flex-col gap-4 card">
-                {/* Wishlist and Comparison */}
-                <div className="flex justify-center gap-4 mb-2">
-                  <WishlistButton product={product} size="large" />
-                  <ProductComparisonButton product={product} size="large" />
-                </div>
-                
-                {/* Main Action Buttons */}
-                <div className="flex flex-col sm:flex-row gap-3 w-full">
-                  <button
-                    onClick={handleAddToOrder}
-                    className="flex-1 px-5 py-2.5 rounded-md text-sm font-semibold transition-all duration-200 btn-primary"
-                  >
-                    Add to Order
-                  </button>
-                  <button
-                    onClick={handleBuyNow}
-                    className="flex-1 px-5 py-2.5 rounded-md text-sm font-medium transition-all duration-200 btn-secondary"
-                  >
-                    Buy Now / View Orders
-                  </button>
-                </div>
-              </div>
-
               {/* Contact */}
               <div className="p-4 rounded-md card">
                 <h3 className="text-sm font-semibold mb-2 text-center" style={{ color: 'var(--text-primary)' }}>Need Help?</h3>
@@ -346,24 +292,80 @@ export default function ProductDetail() {
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Related Products */}
-        <div className="pt-6 pb-12 md:px-6">
-          <h3 className="text-center text-sm font-medium mb-1" style={{ color: 'var(--text-secondary)' }}>
-            Products related to
-            <span className="font-semibold" style={{ color: 'var(--text-primary)' }}> {product.name} </span>
-          </h3>
-          <RelatedProducts
-            selectedCategory={product?.category}
-            keyword={product.name?.split(" ").slice(0, 2).join(" ").toLowerCase()}
-            name={product.name}
-            manufacturer={product?.manufacturer}
-            tags={product?.tags}
-            excludeId={product.id}
-            cardVariant="compact"
-          />
+          {/* Col 3: Price, Quantity, Add to Cart, View Orders — single card */}
+          <div className="md:col-span-1">
+            <div className="w-full flex flex-col gap-3 md:border md:border-gray-200 md:rounded-lg md:p-3">
+              {/* Price */}
+              <div className="flex items-center justify-between flex-wrap gap-2">
+                <span className="text-[15px] font-bold" style={{ color: 'var(--accent-blue)' }}>
+                  {formatPrice(product.discount > 0
+                    ? product.price * (1 - product.discount / 100)
+                    : product.price
+                  )}
+                </span>
+                <div className="flex items-center gap-2">
+                  {product.discount > 0 && (
+                    <span className="line-through text-[15px]" style={{ color: 'var(--text-muted)' }}>
+                      {formatPrice(product.price)}
+                    </span>
+                  )}
+                  {product.discount > 0 && (
+                    <span className="bg-red-600 text-white text-[10px] font-semibold px-1 py-1 rounded-[10px]">
+                      {`${product.discount}%`}
+                    </span>
+                  )}
+                  <CurrencyDropdown />
+                </div>
+              </div>
+
+              {/* Quantity */}
+              <div>
+                <h3 className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>Select Quantity</h3>
+                <QuantityInput quantity={quantity} setQuantity={setQuantity} />
+              </div>
+
+              {/* Wishlist & Compare */}
+              <div className="flex justify-center gap-4">
+                <WishlistButton product={product} size="large" />
+                <ProductComparisonButton product={product} size="large" />
+              </div>
+
+              {/* Add to Cart, View Orders */}
+              <div className="flex flex-col sm:flex-row gap-3 w-full">
+                <button
+                  onClick={handleAddToOrder}
+                  className="flex-1 px-5 py-2.5 rounded-md text-sm font-semibold transition-all duration-200 btn-primary"
+                >
+                  Add to Cart
+                </button>
+                <button
+                  onClick={handleBuyNow}
+                  className="flex-1 px-5 py-2.5 rounded-md text-sm font-medium transition-all duration-200 btn-secondary"
+                >
+                  View Orders
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+
+      {/* Full-width Related Products */}
+      <div className="w-full pt-6 pb-12">
+        <h3 className="text-center text-sm font-medium mb-1 px-4" style={{ color: 'var(--text-secondary)' }}>
+          Products related to
+          <span className="font-semibold" style={{ color: 'var(--text-primary)' }}> {product.name} </span>
+        </h3>
+        <RelatedProducts
+          selectedCategory={product?.category}
+          keyword={product.name?.split(" ").slice(0, 2).join(" ").toLowerCase()}
+          name={product.name}
+          manufacturer={product?.manufacturer}
+          tags={product?.tags}
+          excludeId={product.id}
+          cardVariant="compact"
+        />
       </div>
     </div>
   );

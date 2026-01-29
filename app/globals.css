@@ -115,6 +115,16 @@ body, .roboto {
   border-color: var(--border-medium);
 }
 
+/* Product detail main cards (name, SKU, description, quantity, Add to Cart, etc.): no border on desktop */
+@media (min-width: 768px) {
+  .product-detail-cards .card {
+    border: none;
+  }
+  .product-detail-cards .card:hover {
+    border-color: transparent;
+  }
+}
+
 /* Footer - Amazon Style */
 footer {
   background: #232F3E;
