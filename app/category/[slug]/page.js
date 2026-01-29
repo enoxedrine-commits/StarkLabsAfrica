@@ -298,34 +298,7 @@ import {
 } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import Link from "next/link";
-
-
-// Helper to decode URL and pick preferred size
-const getPreferredImageUrl = (imageUrl) => {
-  if (!imageUrl) return null;
-
-  // If it's a string, decode and return
-  if (typeof imageUrl === "string") {
-    try {
-      return decodeURIComponent(imageUrl);
-    } catch {
-      return imageUrl;
-    }
-  }
-
-  // If it's an object with sizes, prefer 680x680 or original or first
-  if (typeof imageUrl === "object") {
-    const preferred =
-      imageUrl["200x200"] || imageUrl["original"] || Object.values(imageUrl)[0];
-    try {
-      return decodeURIComponent(preferred);
-    } catch {
-      return preferred;
-    }
-  }
-
-  return null;
-};
+import { getPreferredImageUrl } from "@/lib/imageUtils";
 
 export default function CategoryPage() {
   const { slug } = useParams();
@@ -453,21 +426,21 @@ export default function CategoryPage() {
       ) : products.length === 0 ? (
         <p>Sorry!  No products found in this category.</p>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3">
+        <div className="grid grid-cols-[repeat(auto-fill,11rem)] gap-4 justify-start">
           {products.map(({ id, name, price, imageUrl }) => (
-            <Link key={id} href={`/product/${id}`} className="group">
-              <div className="relative w-full h-48 bg-gray-100 rounded-xl overflow-hidden">
-                <img
-                  src={getPreferredImageUrl(imageUrl)}
-                  alt={name}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                />
-              </div>
-              <div className="pt-2">
-                <p className="text-sm font-medium text-gray-900 truncate">{name}</p>
-                <p className="text-sm font-semibold text-gray-700">
-                  UGX {price?.toLocaleString?.()}
-                </p>
+            <Link key={id} href={`/product/${id}`} className="group block w-44">
+              <div className="flex flex-col">
+                <div className="relative w-full h-44 rounded-xl overflow-hidden bg-gray-100">
+                  <img
+                    src={getPreferredImageUrl(imageUrl, "200x200")}
+                    alt={name}
+                    className="w-full h-full object-cover group-hover:opacity-95 transition-opacity"
+                  />
+                </div>
+                <div className="mt-2">
+                  <p className="text-sm font-medium text-[#255cdc] line-clamp-2">{name}</p>
+                  <p className="text-sm text-gray-500">UGX {price?.toLocaleString?.() ?? "N/A"}</p>
+                </div>
               </div>
             </Link>
           ))}
