@@ -70,6 +70,7 @@ import { CartProvider } from "@/components/CartContext";
 import { ProductSettingsProvider } from "@/hooks/useProductSettings";
 import { CurrencyProvider } from "@/hooks/useCurrency";
 import InstallPrompt from "@/components/InstallPrompt";
+import { NavigationLoadingProvider } from "@/components/NavigationLoader";
 import { useEffect } from "react";
 
 export default function ClientWrapper({ children }) {
@@ -89,9 +90,11 @@ export default function ClientWrapper({ children }) {
       <ProductSettingsProvider>
         <CurrencyProvider>
           <CartProvider>
-            <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
-            <NotificationSetup />
-            <InstallPrompt />
+            <NavigationLoadingProvider>
+              <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
+              <NotificationSetup />
+              <InstallPrompt />
+            </NavigationLoadingProvider>
           </CartProvider>
         </CurrencyProvider>
       </ProductSettingsProvider>

@@ -131,6 +131,7 @@ import {
   UserCircleIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import { useNavigationLoading } from "@/components/NavigationLoader";
 
 export default function ClientLayoutWrapper({ children }) {
   const pathname = usePathname();
@@ -143,6 +144,7 @@ export default function ClientLayoutWrapper({ children }) {
   const showNavbar = !hideNavbarOn.includes(pathname) && !pathname.startsWith('/admin');
   const showFooter = !hideFooterOn.includes(pathname) && !pathname.startsWith('/admin');
   const auth = getAuth();
+  const { navigateTo } = useNavigationLoading();
 
   const [user, setUser] = useState(null);
   const [orderCount, setOrderCount] = useState(0);
@@ -282,7 +284,15 @@ export default function ClientLayoutWrapper({ children }) {
             {navItems.map(({ label, href, icon: Icon }, idx) => (
               <button
                 key={idx}
-                onClick={() => router.push(href)}
+                onClick={() => {
+                  if (pathname !== href) {
+                    if (navigateTo) {
+                      navigateTo(href);
+                    } else {
+                      router.push(href);
+                    }
+                  }
+                }}
                 className={`relative flex flex-col items-center flex-1 hover:text-blue-500 ${
                   pathname === href ? "text-blue-600 font-medium" : ""
                 }`}
