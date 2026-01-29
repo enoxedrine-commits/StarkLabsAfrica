@@ -38,9 +38,16 @@ export default function RecentlyViewedProducts({ limit = 6, showTitle = true, ti
     try {
       setLoading(true);
       const items = await CustomerExperienceService.getRecentlyViewed(user.uid, limit);
-      setRecentlyViewed(items);
+      // Filter out any items that don't have valid product data
+      const validItems = items.filter(item => 
+        item.product && 
+        (item.product.name || item.productName) && 
+        (item.product.price !== undefined || item.productPrice !== undefined)
+      );
+      setRecentlyViewed(validItems);
     } catch (error) {
       console.error('Error fetching recently viewed:', error);
+      setRecentlyViewed([]);
     } finally {
       setLoading(false);
       if (onLoadComplete) {
@@ -130,10 +137,13 @@ export default function RecentlyViewedProducts({ limit = 6, showTitle = true, ti
             </div>
             <div className="mt-2">
               <h3 className="text-sm font-medium text-gray-900 line-clamp-2 group-hover:text-blue-600">
-                {formatProductName(item.product?.name || item.productName, settings)}
+                {formatProductName(item.product?.name || item.productName || 'Product', settings)}
               </h3>
               <p className="text-sm text-gray-500">
-                UGX {item.product?.price?.toLocaleString() || item.productPrice?.toLocaleString() || 'N/A'}
+                {item.product?.price !== undefined || item.productPrice !== undefined 
+                  ? `UGX ${(item.product?.price || item.productPrice || 0).toLocaleString()}`
+                  : 'Price unavailable'
+                }
               </p>
             </div>
           </Link>

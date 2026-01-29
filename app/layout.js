@@ -4,7 +4,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata = {
   title: "StarkLabs Electronics",
-  description: "Electronics Lab for Builders & Innovators - Microcontrollers, Sensors, Components & More",
+  description: "Home of Innovator Electronics - Microcontrollers, Sensors, Components & More",
   manifest: "/manifest.json",
   icons: { icon: "/Slogo.png" },
   themeColor: "#FFFFFF",

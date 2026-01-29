@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import CachedLogo from "@/components/CachedLogo";
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -46,60 +47,32 @@ export default function AdminLogin() {
       className="min-h-screen bg-[#255cdc] flex items-center justify-center px-4 py-6"
       data-page="admin-login"
     >
-      <div className="w-full max-w-6xl flex">
-        {/* Desktop: Left - images, title, subtitle (hidden on mobile) */}
-        <div className="hidden md:flex md:w-1/2 flex-col justify-center pr-10">
-          <h1 className="text-3xl font-bold text-white mb-1">HeloQuip</h1>
-          <p className="text-white/90 text-lg mb-6">Medical Equipment & Supplies</p>
-          <div className="flex flex-col gap-3">
-            <div className="relative w-full aspect-[16/10] max-h-44 rounded-2xl overflow-hidden shadow-lg">
-              <Image
-                src="/imaging.png"
-                alt="Imaging"
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 0, 50vw"
-                priority
-              />
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
-                <Image
-                  src="/icu.png"
-                  alt="ICU"
-                  fill
-                  className="object-cover"
-                  sizes="25vw"
-                />
-              </div>
-              <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
-                <Image
-                  src="/imgone.png"
-                  alt="Medical"
-                  fill
-                  className="object-cover"
-                  sizes="25vw"
-                />
-              </div>
-            </div>
-          </div>
+      <div className="w-full max-w-6xl flex flex-col">
+        {/* Desktop: Logo + tagline above, then image and form on same row */}
+        <div className="hidden md:flex items-center gap-3 mb-6">
+          <CachedLogo variant="default" className="h-10 w-auto" />
+          <p className="text-white/90 text-lg">Home of Innovator Electronics</p>
         </div>
 
-        {/* Right (desktop) / Full width (mobile): Login form */}
-        <div className="w-full md:w-1/2 flex items-center justify-center md:justify-end">
-          <div className="w-full max-w-md bg-white p-6 md:p-8 rounded-2xl shadow-2xl border border-gray-100/80">
+        <div className="w-full flex flex-col md:flex-row md:items-stretch gap-6 md:gap-8">
+          {/* Left: Image (same row as form on desktop) */}
+          <div className="hidden md:block md:w-1/2 relative rounded-2xl overflow-hidden shadow-lg min-h-[420px]">
+            <Image
+              src="/loginpage.jpg"
+              alt="StarkLabs – electronics and hardware"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 0, 50vw"
+              priority
+            />
+          </div>
+
+          {/* Right: Login form */}
+          <div className="w-full md:w-1/2 flex items-center justify-center md:justify-end">
+            <div className="w-full max-w-md bg-white p-6 md:p-8 rounded-2xl shadow-2xl border border-gray-100/80 md:min-h-[420px] md:flex md:flex-col md:justify-center">
             <div className="flex flex-col items-center mb-6">
-              <div className="w-14 h-14 bg-[#255cdc]/10 rounded-2xl flex items-center justify-center ring-2 ring-[#255cdc]/20">
-                <svg
-                  className="w-7 h-7 text-[#255cdc]"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-              </div>
-              <h2 className="text-xl font-bold text-gray-900 mt-4">HeloQuip Admin</h2>
+              <CachedLogo variant="register" className="h-10 w-auto" />
+              <h2 className="text-xl font-bold text-gray-900 mt-3">Admin</h2>
               <p className="text-sm text-gray-500 text-center mt-1.5 max-w-[260px]">
                 Enter your email and password, or continue with Google
               </p>
@@ -176,9 +149,10 @@ export default function AdminLogin() {
             </p>
 
             <p className="text-center text-sm text-gray-500 mt-3 font-semibold tracking-wide">
-              HELOQUIP
+              STARKLABS
             </p>
           </div>
+            </div>
         </div>
       </div>
     </div>

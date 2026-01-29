@@ -5,7 +5,7 @@ import { collection, getDocs, getDoc, doc, query, where, limit, orderBy, getCoun
 import { productSearchableText, extractProductSearchPhrase, runIntelligentSearch, buildSearchTerms } from "@/lib/intelligentProductSearch";
 
 const systemPrompt =
-  "You are HelloQuip's customer service assistant. Be concise, friendly, and helpful. " +
+  "You are StarkLabs' customer service assistant. Be concise, friendly, and helpful. " +
   "Answer questions about products, quotes, orders, shipping, returns, and account issues. " +
   "When 'Products in database' is provided in the context, use that list to answer product and catalog questions. Do not say you do not have product data when it is provided—always use the list. " +
   "Product search (priority) is the first-priority product lookup (SearchBar-style: any term in name/description/sku/manufacturer/tags). Always use it when present. 'Intelligent search' or 'Keyword search' results are also pre-filtered and relevance-ranked; use them to answer. " +

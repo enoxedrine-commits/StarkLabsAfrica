@@ -23,7 +23,7 @@ const Footer = () => {
               />
             </div>
             <p className="text-xs mb-6 leading-relaxed text-gray-400">
-            Electronics Lab for Builders & Innovators
+            Home of Innovator Electronics
             </p>
             
             {/* Social Media Links */}

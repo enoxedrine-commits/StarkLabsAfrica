@@ -8,61 +8,33 @@ import RegisterClient from "./RegisterClient";
 export default function RegisterPage() {
   return (
     <div className="min-h-screen bg-[#255cdc] flex items-center justify-center px-4 py-6">
-      <div className="w-full max-w-6xl flex">
-        {/* Desktop: Left - images, title, subtitle (hidden on mobile) */}
-        <div className="hidden md:flex md:w-1/2 flex-col justify-center pr-10">
-          <h1 className="text-3xl font-bold text-white mb-1">HeloQuip</h1>
-          <p className="text-white/90 text-lg mb-6">Medical Equipment & Supplies</p>
-          <div className="flex flex-col gap-3">
-            <div className="relative w-full aspect-[16/10] max-h-44 rounded-2xl overflow-hidden shadow-lg">
-              <Image
-                src="/imaging.png"
-                alt="Imaging"
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 0, 50vw"
-                priority
-              />
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
-                <Image
-                  src="/icu.png"
-                  alt="ICU"
-                  fill
-                  className="object-cover"
-                  sizes="25vw"
-                />
-              </div>
-              <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
-                <Image
-                  src="/imgone.png"
-                  alt="Medical"
-                  fill
-                  className="object-cover"
-                  sizes="25vw"
-                />
-              </div>
-            </div>
-          </div>
+      <div className="w-full max-w-6xl flex flex-col">
+        {/* Desktop: Logo + tagline above, then image and form on same row */}
+        <div className="hidden md:flex items-center gap-3 mb-6">
+          <CachedLogo variant="default" className="h-10 w-auto" />
+          <p className="text-white/90 text-lg">Home of Innovator Electronics</p>
         </div>
 
-        {/* Right (desktop) / Full width (mobile): Register form card */}
-        <div className="w-full md:w-1/2 flex items-center justify-center md:justify-end">
-          <div className="w-full max-w-md bg-white p-6 md:p-8 rounded-2xl shadow-xl flex flex-col items-center">
+        <div className="w-full flex flex-col md:flex-row md:items-stretch gap-6 md:gap-8">
+          {/* Left: Image (same row as form on desktop) */}
+          <div className="hidden md:block md:w-1/2 relative rounded-2xl overflow-hidden shadow-lg min-h-[420px]">
+            <Image
+              src="/loginpage.jpg"
+              alt="StarkLabs – electronics and hardware"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 0, 50vw"
+              priority
+            />
+          </div>
+
+          {/* Right: Register form card */}
+          <div className="w-full md:w-1/2 flex items-center justify-center md:justify-end">
+            <div className="w-full max-w-md bg-white p-6 md:p-8 rounded-2xl shadow-xl flex flex-col items-center md:min-h-[420px] md:justify-center">
             <div className="flex flex-col items-center mb-6">
-              <div className="w-12 h-12 bg-[#255cdc]/10 rounded-xl flex items-center justify-center">
-                <svg
-                  className="w-6 h-6 text-[#255cdc]"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M12 12c2.67 0 8 1.34 8 4v2H4v-2c0-2.66 5.33-4 8-4zm0-2a4 4 0 100-8 4 4 0 000 8z" />
-                </svg>
-              </div>
-              <h2 className="text-xl font-semibold text-gray-900 mt-3">HeloQuip</h2>
-              <p className="text-sm text-gray-500 text-center mt-1">
-                Medical Equipment & Supplies
+              <CachedLogo variant="register" className="h-10 w-auto" />
+              <p className="text-sm text-gray-500 text-center mt-3">
+                Home of Innovator Electronics
               </p>
               <p className="text-xs text-gray-500 mt-2">
                 Continue with Google to sign in or shop
@@ -78,8 +50,6 @@ export default function RegisterPage() {
               ← Return to Shop
             </Link>
 
-            <div className="mt-8">
-              <CachedLogo variant="register" className="h-10 w-auto" />
             </div>
           </div>
         </div>

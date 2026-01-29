@@ -14,7 +14,7 @@ import {
 import { useRouter } from 'next/navigation';
 
 const DEFAULT_GREETING =
-  "Hi! I'm the HelloQuip support assistant. Ask me about orders, quotes, shipping, or products.";
+  "Hi! I'm the StarkLabs support assistant. Ask me about orders, quotes, shipping, or products.";
 
 const QUICK_STARTS = [
   'Where is my order?',
@@ -149,7 +149,7 @@ export default function AgentChat() {
             </div>
             <div>
               <p className="text-sm font-semibold text-slate-900">
-                HeloQuip Support
+                StarkLabs Support
               </p>
               <div className="flex items-center gap-2 text-xs text-slate-500">
                 <CircleDot className="h-3 w-3 text-emerald-500" />
@@ -198,7 +198,7 @@ export default function AgentChat() {
                 <div className="w-full max-w-[85%]">
                   <div className="flex items-center gap-2 text-[11px] text-slate-500 mb-1">
                     <User className="h-3 w-3 text-[#2e4493]" />
-                    HeloQuip Support
+                    StarkLabs Support
                   </div>
                   <div className="whitespace-pre-wrap text-sm text-slate-800">{msg.content}</div>
                 </div>
@@ -247,7 +247,7 @@ export default function AgentChat() {
               onChange={(event) => setInput(event.target.value)}
               onKeyDown={handleKeyDown}
               rows={1}
-              placeholder="Message HeloQuip"
+              placeholder="Message StarkLabs"
               className="w-full resize-none rounded-full border border-slate-200 pl-4 pr-14 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#2e4493]/30"
               disabled={loading}
             />
